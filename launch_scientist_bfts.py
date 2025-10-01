@@ -240,7 +240,8 @@ if __name__ == "__main__":
     with open(idea_path_json, "w") as f:
         json.dump(ideas[args.idea_idx], f, indent=4)
 
-    config_path = "bfts_config.yaml"
+    config_path = os.environ["AI_SCIENTIST_ROOT"] + "bfts_config.yaml"
+    # MEMO: 元のbfts_config.yamlの情報に加えてdata dirやlog dir, idea_dir, idea_path_jsonの情報を加えたyamlを生成する
     idea_config_path = edit_bfts_config_file(
         config_path,
         idea_dir,
@@ -248,6 +249,7 @@ if __name__ == "__main__":
     )
 
     perform_experiments_bfts(idea_config_path)
+    # MEMO: 0-runとhard codingしているが、indexが0ではなかった場合を考慮する必要があるのでは？
     experiment_results_dir = osp.join(idea_dir, "logs/0-run/experiment_results")
     if os.path.exists(experiment_results_dir):
         shutil.copytree(

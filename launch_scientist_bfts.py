@@ -240,7 +240,7 @@ if __name__ == "__main__":
     with open(idea_path_json, "w") as f:
         json.dump(ideas[args.idea_idx], f, indent=4)
 
-    config_path = os.environ["AI_SCIENTIST_ROOT"] + "bfts_config.yaml"
+    config_path = os.environ["AI_SCIENTIST_ROOT"] + "/bfts_config.yaml"
     # MEMO: 元のbfts_config.yamlの情報に加えてdata dirやlog dir, idea_dir, idea_path_jsonの情報を加えたyamlを生成する
     idea_config_path = edit_bfts_config_file(
         config_path,

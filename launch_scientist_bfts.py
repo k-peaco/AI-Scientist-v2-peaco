@@ -6,7 +6,7 @@ import torch
 import os
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from ai_scientist.llm import create_client
 
 from contextlib import contextmanager
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
     idea = ideas[args.idea_idx]
 
-    date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    date = datetime.now(timezone(timedelta(hours=9), 'Asia/Tokyo')).strftime("%Y-%m-%d_%H-%M-%S")
     idea_dir = f"experiments/{date}_{idea['Name']}_attempt_{args.attempt_id}"
     print(f"Results will be saved in {idea_dir}")
     os.makedirs(idea_dir, exist_ok=True)

@@ -252,7 +252,7 @@ if __name__ == "__main__":
     if os.path.exists(experiment_results_dir):
         shutil.copytree(
             experiment_results_dir,
-            osp.join(idea_dir, "AI-Scientist-v2-peaco/experiment_results"),
+            osp.join(idea_dir, "experiment_results"),
             dirs_exist_ok=True,
         )
 

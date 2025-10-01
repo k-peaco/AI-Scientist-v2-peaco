@@ -2,9 +2,13 @@
 data_dir: "data"
 preprocess_data: False
 
+# MEMO: 実験のゴールとeval(何に使われるかは10/1時点で不明)を記載
+# MEMO: Generate Research Ideasステップを実施し、jsonファイルを準備するのであれば記載不要
 goal: null
 eval: null
 
+# MEMO: 成果物やログ等が配置されるexperiments/{date}_{idea['Name']}_attempt_{args.attempt_id}以下のディレクトリ名
+# MEMO: 基本的に変更する必要なし
 log_dir: logs
 workspace_dir: workspaces
 
@@ -34,19 +38,20 @@ debug:
 
 # agent hyperparams
 agent:
-  type: parallel
-  num_workers: 4
+  # MEMO: parallel or sequential
+  type: sequential
+  num_workers: 1
   stages:
-    stage1_max_iters: 20
-    stage2_max_iters: 12
-    stage3_max_iters: 12
-    stage4_max_iters: 18
+    stage1_max_iters: 8
+    stage2_max_iters: 6
+    stage3_max_iters: 6
+    stage4_max_iters: 8
   # how many improvement iterations to run
   steps: 5 # if stage-specific max_iters are not provided, the agent will use this value for all stages
   # whether to instruct the agent to use CV (set to 1 to disable)
   k_fold_validation: 1
   multi_seed_eval:
-    num_seeds: 3 # should be the same as num_workers if num_workers < 3. Otherwise, set it to be 3.
+    num_seeds: 1 # should be the same as num_workers if num_workers < 3. Otherwise, set it to be 3.
   # whether to instruct the agent to generate a prediction function
   expose_prediction: False
   # whether to provide the agent with a preview of the data
@@ -54,7 +59,7 @@ agent:
 
   # LLM settings for coding
   code:
-    model: anthropic.claude-3-5-sonnet-20241022-v2:0
+    model: gpt-4o-2024-11-20
     temp: 1.0
     max_tokens: 12000
 

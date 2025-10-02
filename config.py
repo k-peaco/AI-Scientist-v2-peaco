@@ -1,0 +1,1 @@
+OUTPUT_ROOT_PATH = "/content/drive/MyDrive/データ/AI-Scientist-v2-result/"

@@ -27,7 +27,6 @@ from ai_scientist.perform_llm_review import perform_review, load_paper
 from ai_scientist.perform_vlm_review import perform_imgs_cap_ref_review
 from ai_scientist.utils.token_tracker import token_tracker
 
-from config import OUTPUT_ROOT_PATH
 
 def print_time():
     print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -190,7 +189,7 @@ if __name__ == "__main__":
     idea = ideas[args.idea_idx]
 
     date = datetime.now(timezone(timedelta(hours=9), 'Asia/Tokyo')).strftime("%Y-%m-%d_%H-%M-%S")
-    idea_dir = OUTPUT_ROOT_PATH + f"experiments/{date}_{idea['Name']}_attempt_{args.attempt_id}"
+    idea_dir = f"experiments/{date}_{idea['Name']}_attempt_{args.attempt_id}"
     print(f"Results will be saved in {idea_dir}")
     os.makedirs(idea_dir, exist_ok=True)
 

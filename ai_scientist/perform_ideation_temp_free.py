@@ -2,27 +2,31 @@ import argparse
 import json
 import os.path as osp
 import re
+import sys
 import traceback
 from typing import Any, Dict, List
 
-import sys
-
 sys.path.append(osp.join(osp.dirname(__file__), ".."))
-from ai_scientist.llm import (
-    AVAILABLE_LLMS,
-    create_client,
-    get_response_from_llm,
-)
-
-from ai_scientist.tools.semantic_scholar import SemanticScholarSearchTool
+from ai_scientist.llm import (AVAILABLE_LLMS, create_client,
+                              get_response_from_llm)
 from ai_scientist.tools.base_tool import BaseTool
+from ai_scientist.tools.get_next_individual_number_card_taskforce_summary import \
+    GetNextIndividualNumberCardTaskforceSummaryTool
+from ai_scientist.tools.get_public_comment_summary import \
+    GetPublicCommentSummaryTool
+from ai_scientist.tools.semantic_scholar import SemanticScholarSearchTool
 
 # Create tool instances
 semantic_scholar_tool = SemanticScholarSearchTool()
+get_next_individual_number_card_taskforce_summary_tool = \
+    GetNextIndividualNumberCardTaskforceSummaryTool()
+get_public_comment_summary_tool = GetPublicCommentSummaryTool()
 
 # Define tools at the top of the file
 tools = [
     semantic_scholar_tool,
+    get_next_individual_number_card_taskforce_summary_tool,
+    get_public_comment_summary_tool,
     {
         "name": "FinalizeIdea",
         "description": """Finalize your idea by providing the idea details.

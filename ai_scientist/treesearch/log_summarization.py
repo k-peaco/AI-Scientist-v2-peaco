@@ -1,15 +1,16 @@
 import json
 import os
-import sys
 import re
+import sys
 
 import openai
 
-from .journal import Node, Journal
+from .journal import Journal, Node
 
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 sys.path.insert(0, parent_dir)
-from ai_scientist.llm import get_response_from_llm, extract_json_between_markers
+from ai_scientist.llm import (extract_json_between_markers,
+                              get_response_from_llm)
 
 client = openai.OpenAI()
 model = "gpt-4o-2024-08-06"
@@ -355,15 +356,17 @@ def overall_summarize(journals):
     
     draft_summary = baseline_summary = research_summary = ablation_summary = None
     for main_stage_idx in latest_journals_keys.keys():
-        if main_stage_idx == 1:
-            draft_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
-        elif main_stage_idx == 2:
-            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
-        elif main_stage_idx == 3:
-            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
-        elif main_stage_idx == 4:
-            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
 
+        stage_name = latest_journals_keys[main_stage_idx][1]
+        stage_journal = journals[stage_name]
+        if main_stage_idx == "1":
+            draft_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+        elif main_stage_idx == "2":
+            baseline_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+        elif main_stage_idx == "3":
+            research_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+        elif main_stage_idx == "4":
+            ablation_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
 
     # from tqdm import tqdm
     # with ThreadPoolExecutor() as executor:
@@ -382,7 +385,7 @@ def overall_summarize(journals):
 
 if __name__ == "__main__":
     # Test
-    example_path = "logs/247-run"
+    example_path = "test-experiments/2025-10-05/logs/0-run"
 
     def load_stage_folders(base_path):
         """
@@ -425,7 +428,7 @@ if __name__ == "__main__":
 
     # Example usage
     stage_folders = load_stage_folders(example_path)
-    journals = []
+    journals = {}
     for index, folder in enumerate(stage_folders, start=1):
         print(f"Stage {index}: {folder}")
         stage_name = os.path.basename(folder)
@@ -437,7 +440,8 @@ if __name__ == "__main__":
         else:
             print(f"No journal.json found for Stage {index}")
         journal = reconstruct_journal(journal_data)
-        journals.append((stage_name, journal))
+        # In the production code, the prefix "stage_" is not included in stage_name
+        journals[stage_name.removeprefix("stage_")] = journal
 
     # Convert manager journals to list of (stage_name, journal) tuples
     (
@@ -446,11 +450,10 @@ if __name__ == "__main__":
         research_summary,
         ablation_summary,
     ) = overall_summarize(journals)
-    log_dir = "logs/247-run"
-    draft_summary_path = log_dir + "/draft_summary.json"
-    baseline_summary_path = log_dir + "/baseline_summary.json"
-    research_summary_path = log_dir + "/research_summary.json"
-    ablation_summary_path = log_dir + "/ablation_summary.json"
+    draft_summary_path = example_path + "/draft_summary.json"
+    baseline_summary_path = example_path + "/baseline_summary.json"
+    research_summary_path = example_path + "/research_summary.json"
+    ablation_summary_path = example_path + "/ablation_summary.json"
 
     with open(draft_summary_path, "w") as draft_file:
         json.dump(draft_summary, draft_file, indent=2)

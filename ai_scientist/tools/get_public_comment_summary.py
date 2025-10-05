@@ -12,7 +12,7 @@ class GetPublicCommentSummaryTool(BaseTool):
     def __init__(self):
         super().__init__(
             name="GetPublicCommentSummaryTool",
-            description="「次期個人番号カードタスクフォース中間とりまとめ骨子」に対してのパブリックコメントの全文を取得して返します。",
+            description="Returns the full text of public comments regarding the “Outline of the Interim Summary of the Next-Generation My Number Card Task Force.",
             parameters=[]
         )
         self.file_path = os.path.join(

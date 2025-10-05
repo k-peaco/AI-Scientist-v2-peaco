@@ -12,7 +12,7 @@ class GetNextIndividualNumberCardTaskforceSummaryTool(BaseTool):
     def __init__(self):
         super().__init__(
             name="GetNextIndividualNumberCardTaskforceSummaryTool",
-            description="「次期個人番号カードタスクフォース中間とりまとめ骨子」PDFの全文テキストを取得して返します",
+            description="“Next-Generation My Number Card Task Force Interim Summary Outline” PDF: Retrieve and return the full text.",
             parameters=[]
         )
         self.file_path = os.path.join(

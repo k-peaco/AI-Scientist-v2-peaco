@@ -300,6 +300,8 @@ def overall_summarize(journals):
     from concurrent.futures import ThreadPoolExecutor
 
     def process_stage(idx, stage_tuple):
+        # Decrement since the value is given by the main stage number
+        idx -= 1
         stage_name, journal = stage_tuple
         annotate_history(journal)
         if idx in [1, 2]:
@@ -360,13 +362,13 @@ def overall_summarize(journals):
         stage_name = latest_journals_keys[main_stage_idx][1]
         stage_journal = journals[stage_name]
         if main_stage_idx == "1":
-            draft_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+            draft_summary = process_stage(int(main_stage_idx), (stage_name, stage_journal))
         elif main_stage_idx == "2":
-            baseline_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+            baseline_summary = process_stage(int(main_stage_idx), (stage_name, stage_journal))
         elif main_stage_idx == "3":
-            research_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+            research_summary = process_stage(int(main_stage_idx), (stage_name, stage_journal))
         elif main_stage_idx == "4":
-            ablation_summary = process_stage(int(main_stage_idx)-1, (stage_name, stage_journal))
+            ablation_summary = process_stage(int(main_stage_idx), (stage_name, stage_journal))
 
     # from tqdm import tqdm
     # with ThreadPoolExecutor() as executor:

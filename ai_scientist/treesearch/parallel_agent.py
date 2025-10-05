@@ -483,7 +483,7 @@ class MinimalAgent:
 
         print("[cyan]--------------------------------[/cyan]")
         print("[cyan]self.task_desc[/cyan]")
-        print("[cyan]" + self.task_desc + "[/cyan]")
+        # print("[cyan]" + self.task_desc + "[/cyan]") # MEMO: ログが肥大化するのでコメントアウト
         print("[cyan]--------------------------------[/cyan]")
 
         print("MinimalAgent: Getting plan and code")

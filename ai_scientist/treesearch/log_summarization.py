@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import re
 
 import openai
 
@@ -339,17 +340,42 @@ def overall_summarize(journals):
             summary_json = get_stage_summary(journal, stage_name, model, client)
             return summary_json
 
-    from tqdm import tqdm
+    # Keep only the latest journal at each stage
+    latest_journals_keys = {}
+    for key in journals.keys():
+        m = re.match(r"(\d+)_.*?_(\d+)_.*", key)
+        stage, num = m.groups()
+        num = int(num)
 
-    with ThreadPoolExecutor() as executor:
-        results = list(
-            tqdm(
-                executor.map(process_stage, range(len(list(journals))), journals),
-                desc="Processing stages",
-                total=len(list(journals)),
-            )
-        )
-        draft_summary, baseline_summary, research_summary, ablation_summary = results
+        if stage not in latest_journals_keys or num > latest_journals_keys[stage][0]:
+            latest_journals_keys[stage] = (num, key)
+
+    if len(latest_journals_keys) != 4:
+        raise ValueError(f"Some of the stages are failed. Success stages are {sorted(list(latest_journals_keys.keys()))}")
+    
+    draft_summary = baseline_summary = research_summary = ablation_summary = None
+    for main_stage_idx in latest_journals_keys.keys():
+        if main_stage_idx == 1:
+            draft_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
+        elif main_stage_idx == 2:
+            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
+        elif main_stage_idx == 3:
+            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
+        elif main_stage_idx == 4:
+            baseline_summary = process_stage(int(main_stage_idx), journals[latest_journals_keys[main_stage_idx][1]])
+
+
+    # from tqdm import tqdm
+    # with ThreadPoolExecutor() as executor:
+    #     results = list(
+    #         tqdm(
+    #             # MEMO: journalsのidxとjournalsをzipして、それぞれprocess_stageに入れる処理を並列実行
+    #             executor.map(process_stage, range(len(list(journals))), journals),
+    #             desc="Processing stages",
+    #             total=len(list(journals)),
+    #         )
+    #     )
+    #     draft_summary, baseline_summary, research_summary, ablation_summary = results
 
     return draft_summary, baseline_summary, research_summary, ablation_summary
 

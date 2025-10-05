@@ -217,7 +217,7 @@ def perform_experiments_bfts(config_path: str):
             baseline_summary,
             research_summary,
             ablation_summary,
-        ) = overall_summarize(manager.journals.items())
+        ) = overall_summarize(manager.journals)
         draft_summary_path = cfg.log_dir / "draft_summary.json"
         baseline_summary_path = cfg.log_dir / "baseline_summary.json"
         research_summary_path = cfg.log_dir / "research_summary.json"

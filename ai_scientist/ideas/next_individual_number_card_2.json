@@ -1,0 +1,32 @@
+[
+    {
+        "Name": "gamified_digital_id_incentives",
+        "Title": "Enhancing Digital ID Adoption through Gamified Incentives and Privacy-Enhanced Design",
+        "Short Hypothesis": "Integrating gamified incentives with robust privacy-enhanced designs in digital ID systems will significantly improve user adoption and engagement, addressing both motivational and privacy concerns.",
+        "Related Work": "Prior research has identified privacy concerns and lack of immediate benefits as barriers to digital ID adoption (Xia et al., 2023; Yilma, 2022). Gamification has been shown to enhance user engagement in various domains, such as language learning (Charunin et al., 2024). However, there is limited research on the combined effect of gamification and privacy-enhanced designs in digital ID systems, making this proposal novel and impactful.",
+        "Abstract": "Digital identification systems face significant challenges in user adoption due to privacy concerns and perceived lack of immediate benefits. This proposal aims to explore the potential of integrating gamified incentives with robust privacy-enhanced designs to address these challenges. By incorporating elements such as points, badges, and rewards for system use, alongside advanced privacy-preserving techniques, we hypothesize that user engagement and adoption rates can be significantly improved. We will conduct a series of controlled experiments and user surveys to test our hypothesis, measuring adoption rates, user satisfaction, and privacy perceptions. Our research will contribute to a deeper understanding of how to design more effective and user-friendly digital ID systems.",
+        "Experiments": [
+            {
+                "description": "Conduct a survey to assess current user perceptions of digital ID systems, focusing on privacy concerns and perceived benefits.",
+                "metrics": "Survey responses on privacy concerns, perceived benefits, and willingness to adopt."
+            },
+            {
+                "description": "Develop a prototype digital ID system with integrated gamified incentives and privacy-enhanced features.",
+                "metrics": "System usability, user engagement metrics (e.g., frequency of use, gamification interaction), and privacy feature utilization."
+            },
+            {
+                "description": "Run a controlled experiment comparing user adoption and engagement between the prototype system and a non-gamified, non-privacy-enhanced baseline system.",
+                "metrics": "Adoption rates, user engagement levels, and satisfaction scores."
+            },
+            {
+                "description": "Conduct follow-up interviews to gather qualitative feedback on user experiences and suggestions for improvement.",
+                "metrics": "Thematic analysis of interview transcripts to identify common themes and user insights."
+            }
+        ],
+        "Risk Factors and Limitations": [
+            "User manipulation of gamification elements leading to artificial engagement.",
+            "Balancing gamification and privacy features without compromising user experience.",
+            "Potential resistance from users who are averse to gamification or distrustful of digital ID systems."
+        ]
+    }
+]

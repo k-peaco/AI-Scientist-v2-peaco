@@ -42,7 +42,7 @@ agent:
   type: sequential
   num_workers: 1
   stages:
-    stage1_max_iters: 5
+    stage1_max_iters: 8
     stage2_max_iters: 2
     stage3_max_iters: 2
     stage4_max_iters: 2

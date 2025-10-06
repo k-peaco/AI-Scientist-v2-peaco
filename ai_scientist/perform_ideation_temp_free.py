@@ -97,6 +97,7 @@ IDEA JSON:
 
 Ensure the JSON is properly formatted for automatic parsing.
 
+**IMPORTANT**: If the input contains the section header ## Prior Research Abstract, you must treat it as the foundation of the current research. Build upon its findings, extend its hypotheses, and elaborate the previous study’s implications to propose new and deeper research ideas.
 Note: You should perform at least one literature search before finalizing your idea to ensure it is well-informed by existing research."""
 
 # Define the initial idea generation prompt
